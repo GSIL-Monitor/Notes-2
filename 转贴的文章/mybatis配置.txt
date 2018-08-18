@@ -4,7 +4,7 @@ Java中的配置资源类型：
 
 
 
-
+dadsaassad
 <build>	
 	<resources>
 		<resource>
