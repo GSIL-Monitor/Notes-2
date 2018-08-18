@@ -1,0 +1,8 @@
+Set set = map.entrySet(); //entrySet()
+for(Iterator iter = set.iterator();iter.hasNext();)
+{
+Map.Entry entry = (Map.Entry)iter.next();
+String key = (String)entry.getKey(); //一次性获得键和值 key和value
+String value = (String)entry.getValue();
+System.out.println(key + ": " + value);
+}
