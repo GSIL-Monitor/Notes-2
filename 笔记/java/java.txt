@@ -6,3 +6,6 @@ String key = (String)entry.getKey(); //一次性获得键和值 key和value
 String value = (String)entry.getValue();
 System.out.println(key + ": " + value);
 }
+
+深入理解java虚拟机
+javascript学习指南

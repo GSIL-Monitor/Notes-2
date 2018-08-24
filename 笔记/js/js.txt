@@ -1,0 +1,42 @@
+﻿jquery框架，得到某个对象（控件），就用 # 在加上id的名字
+
+var timer=null
+    function formSubmit() {
+        var sessionId = getCookie('sid');
+        var form = new mini.Form("#jbxxForm");
+        form.validate();
+        if (form.isValid() == false) return;
+        if(mini.get("bMatch").value=='2'){
+            if(!mini.get("bInfo").getText()){
+                mini.alert("请选择B证信息");
+                return;
+            }
+        }else{
+            mini.get("bInfo").setValue("");
+            mini.get("bEffectiveTime").setValue("");
+            mini.get("bInfo").setText("");
+        }
+        var data = form.getData();
+        var json = mini.encode(data);
+        data.sessionId = sessionId;
+        $(this).click(function () {
+            clearTimeout(timer);
+            timer=setTimeout(function () {
+                $(this).wjsAjax({
+                    url: "/CertInfo/levelOneConstructorAddOrUpdate",
+                    data: {"jsonStr":json,"sessionId":sessionId},
+                    getDatas: function (data) {
+                        if (data.flag) {
+                            window.location.href = "/CertInfo/architect?sysCode=" + data.obj.split(",")[0];
+                            zgzAdd();
+                            zczAdd();
+
+                        } else {
+                            mini.alert(data.message);
+                        }
+                    }
+                });
+            },1000);
+        })
+
+    }
