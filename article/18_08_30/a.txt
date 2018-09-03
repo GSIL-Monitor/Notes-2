@@ -1,0 +1,13 @@
+﻿标题
+3、通过window.location.open
+如果是希望打开一个新页面，而不是改变当前的页面，那么window.location.href就不适用了，此时，我们需要借助于window.location.open()来实现 
+简单介绍有一下window.open()函数，window.open()有三个参数，第一个参数是要打开的页面的url,第二个参数是窗口目标，第三个参数是一个特定字符串以及一个表示新页面是否取代浏览器历史集中当前加载页面的布尔值，通过只需要传递第一个参数。第二个参数还可以是”_blank”,”_self”,”_parent”,”_top”这样的特殊窗口名称，”_blank”打开新窗口,”_self”实现的效果同window.location.href. 
+继续上面的例子：
+	var index = "lemon";
+	var url = "receive.html?index="+index;
+	$("#more").click(function(){
+	window.open(url)
+	});
+这样在点击的时候，就会打开一个新页面，页面的url地址与上面相同。 
+
+

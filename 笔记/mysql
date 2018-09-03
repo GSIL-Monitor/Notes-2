@@ -1,0 +1,7 @@
+unsigned 为“无符号”的意思 
+    
+unsigned 既为非负数，用此类型可以增加数据长度!
+
+例如如果    tinyint最大是127，那    tinyint    unsigned    最大   就可以到    127 * 2
+
+unsigned 属性只针对整型，
