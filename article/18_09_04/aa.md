@@ -1,4 +1,3 @@
-##陈歌彦超好看！
 标题
 3、通过window.location.open
   如果是希望打开一个新页面，而不是改变当前的页面，那么window.location.href就不适用了，此时，、
@@ -15,7 +14,8 @@
 
 这样在点击的时候，就会打开一个新页面，页面的url地址与上面相同。
 
-    package com.csidez.myblog;
+
+	package com.csidez.myblog;
     import java.io.BufferedReader;
     import java.io.File;
     import java.io.FileReader;
