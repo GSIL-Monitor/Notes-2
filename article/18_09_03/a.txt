@@ -1,0 +1,67 @@
+﻿package com.csidez.myblog;
+
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+
+
+/**
+ *
+ select * from (SELECT `idcard`,`name`,COUNT(`name`) num  FROM tb_staff_info WHERE `name` IN ('﻿资奖根')
+ UNION
+ SELECT `idcard`,`name`,COUNT(`name`) num FROM tb_staff_info WHERE `name` IN ('朱正治')
+ )c
+ where num !=1
+ */
+public class test {
+    public static void main(String args[])throws Exception{
+        File file = new File("D:\\idcard.txt");//Text文件
+        BufferedReader br = new BufferedReader(new FileReader(file));//构造一个BufferedReader类来读取文件
+        String s = null;
+        String[] idcard=new String[400];
+        String[] flag = new String[400];
+        int i=0;
+        while((s = br.readLine())!=null){//使用readLine方法，一次读一行s
+//            idcard[i]=s;
+//            i++;
+
+//            s.indexOf("/",4);
+//            s.indexOf("/",6);
+            if (s.length()>2){
+                StringBuffer stringBuffer = new StringBuffer(s);
+//                增加
+                stringBuffer.insert(4,"/");
+                stringBuffer.insert(7,"/");
+//                截取
+//                String k = s.substring(1,4);
+                System.out.println(stringBuffer);
+            }else {
+                System.out.println(s);
+            }
+//            System.out.println("SELECT `idcard`,`name`,COUNT(`name`) FROM tb_staff_info WHERE `name` IN ('"+s+"')\n" +
+//                    "UNION");
+//                System.out.print(s+",");
+        }
+
+
+//        for(int j=0;j<idcard.length;j++){
+//            int y=1;
+//            for(int k=j+1;k<idcard.length;k++){
+//                if (idcard[j].equals(idcard[k])){
+//                    y++;
+//                }
+//            }
+//            if (y==2){
+//                System.out.println("是");
+//            }else {
+//                System.out.println("否");
+//            }
+//        }
+//
+//        for (String o:flag){
+//            System.out.println(o);
+//        }
+        br.close();;
+    }
+}
