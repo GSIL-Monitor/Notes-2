@@ -1,0 +1,52 @@
+https://blog.csdn.net/rhythm923/article/details/66476425
+ajax()不执行success回调情况的分析和解决
+2017年03月26日 16:15:07 阅读数：8591 标签： javascript web前端 ajax 异常 bug  更多
+个人分类： 前端开发（h5+css+js）
+版权声明：本文为博主原创文章，未经博主允许不得转载。	https://blog.csdn.net/rhythm923/article/details/66476425
+调用后台接口写搜索文章功能时出现了ajax()走不到success回调的情况，以下是发现此情况后的分析与解决。
+
+		    //搜索新闻
+		    function SearchNews(){
+		    	var KEYWORD = $("input[name='keyword']").val();
+		    	$.ajax({
+					type: "post",
+					url: "*",
+					data: {
+						"start": "1",
+						"limit": "2",
+						"title": KEYWORD
+					},
+					dataType: "json",
+					success: function(data) {						
+						var html = '';
+						$.each(data, function(i, n) {
+							html += '<li class="media"><a class="media-left" href="showContent.html?newsId=' + n['newsId'] + '&special=' + n['special'] + '">' +
+								'<img src="' + n['image'] + '"alt=""></a>' +
+								'<div class="media-body"><a href="showContent.html?newsId=' + n['newsId'] + '&special=' + n['special'] + '">' +
+								n['title'] + '</a><div class="media-bottom">' + getLocalTime(n['time']) + '</div></li>';
+ 
+						});
+                        html+="<hr></hr><li>没有更多相关内容了，请浏览推荐新闻</li><hr></hr>"
+						document.getElementById('newslist').innerHTML = html;
+					}
+				});
+		    }
+首先判断了url，正确无误。
+其次是dataType，传递数据为json格式，但当传回数据不为json时，也有可能发生不执行success回调的情况。
+
+于是单独使用后台接口试验了一下，传回为json数据，能够拿到success的data数据。
+
+那么只有可能是在异步提交时，还没有验证成功，按钮提交事件触发，页面已经自动刷新。
+
+		<form class="navbar-form navbar-right hidden-xs" role="search">
+			<div class="form-group">
+				<input type="text" name="keyword" class="form-control" placeholder="快来搜索你感兴趣的内容">
+			</div>
+			<a role="button" href="javascript:;" class="btn btn-default" onclick="SearchNews()">
+                                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                        </a>
+		</form>
+以上为原搜索框和按钮表单，使用bootstrap框架，嵌入在导航条navbar中。经多次调试后发现，嵌入在bootstrap导航条的表单中的按钮会在被点击后自动刷新页面。
+于是将<form>改为<div>标签，问题得到了解决。
+
+罪魁祸首是导航条中的表单按钮会执行自动刷新页面事件，导致了异步传输没有完成验证就被“刷新”。
